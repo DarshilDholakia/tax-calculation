@@ -39,11 +39,8 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <!-- runtime scope useful for dynamically linked dependencies like jdbc drivers which aren't directly referenced in our
-            code hence these dependencies are only available in test and run classpath -->
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>com.darshil</groupId>-->
