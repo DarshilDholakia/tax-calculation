@@ -17,7 +17,7 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public Optional<Person> getPersonById(Long id){
+    public Optional<Person> getPersonById(int id){
         return personRepository.findById(id);
     }
 
@@ -25,11 +25,11 @@ public class PersonService {
         return personRepository.insert(person);
     }
 
-    public void deletePersonById(Long id){
+    public void deletePersonById(int id){
         personRepository.deleteById(id);
     }
 
-    public Person updatePersonById(Long id, Person person){
+    public Person updatePersonById(int id, Person person){
         Optional<Person> existingPerson = personRepository.findById(id);
         if(existingPerson.isPresent()) {
             return personRepository.save(person);
