@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Person {
 
     @Id
-    private int id;
+    private String id;
     private String firstName;
     private String lastName;
     @Indexed(unique = true)

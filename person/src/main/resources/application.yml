@@ -1,11 +1,5 @@
-spring.data.mongodb.authentication-database: admin
-server.port: 8082
-spring.data.mongodb.username: rootuser
-spring.data.mongodb.password: rootpass
-spring.data.mongodb.database: person
-spring.data.mongodb.port: 27017
-spring.data.mongodb.host: localhost
-#spring.data.mongodb.uri: mongodb://localhost:27017/person
+server:
+  port: 8082
 
 eureka:
   client:
@@ -17,3 +11,11 @@ eureka:
 spring:
   application:
     name: person
+  data:
+    mongodb:
+      authentication-database: admin
+      username: rootuser
+      password: rootpass
+      database: person
+      port: 27017
+      host: localhost

@@ -17,7 +17,7 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public Optional<Person> getPersonById(int id){
+    public Optional<Person> getPersonById(String id){
         return personRepository.findById(id);
     }
 
@@ -25,16 +25,15 @@ public class PersonService {
         return personRepository.insert(person);
     }
 
-    public void deletePersonById(int id){
+    public void deletePersonById(String id){
         personRepository.deleteById(id);
     }
 
-    public Person updatePersonById(int id, Person person){
+    public Person updatePersonById(String id, Person person){
         Optional<Person> existingPerson = personRepository.findById(id);
-        if(existingPerson.isPresent()) {
+        if (existingPerson.isPresent()) {
             return personRepository.save(person);
-        }
-        else{
+        } else{
             throw new IllegalStateException("Person with id " + id + " doesn't exist");
         }
     }
