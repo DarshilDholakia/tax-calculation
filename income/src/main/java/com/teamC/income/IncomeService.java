@@ -1,9 +1,8 @@
 package com.teamC.income;
 
-import com.teamC.clients.Person;
-import com.teamC.clients.PersonClient;
+import com.teamC.clients.person.Person;
+import com.teamC.clients.person.PersonClient;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

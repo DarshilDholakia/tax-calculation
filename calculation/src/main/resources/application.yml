@@ -1,0 +1,36 @@
+#server:
+#  port: 8084
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#    fetch-registry: true
+#    register-with-eureka: true
+#
+#spring:
+#  application:
+#    name: calculation
+#  data:
+#    mongodb:
+#      authentication-database: admin
+#      username: rootuser
+#      password: rootpass
+#      database: person
+#      port: 27017
+#      host: localhost
+#    rabbitmq:
+#      addresses: localhost:5672
+#
+#rabbitmq:
+#  exchanges:
+#    internal: internal.exchange
+#  queue:
+#    notification: notification.queue
+#  routing-keys:
+#    internal-notification: internal.notification.routing-key
+
+spring.application.name: calculation
+#^this is what we are calling this microservice (has to be same as config (which is called calculation.yml))
+spring.config.import: http://localhost:8888/
+#^this is telling the application where to find the config files

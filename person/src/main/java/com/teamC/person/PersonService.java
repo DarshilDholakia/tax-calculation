@@ -1,6 +1,6 @@
 package com.teamC.person;
 
-import com.teamC.clients.Person;
+import com.teamC.clients.person.Person;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
