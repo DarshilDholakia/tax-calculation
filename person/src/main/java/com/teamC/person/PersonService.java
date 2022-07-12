@@ -32,13 +32,13 @@ public class PersonService {
     public Person updatePersonById(String id, Person person){
         Optional<Person> existingPerson = getPersonById(id);
         if (existingPerson.isPresent()) {
-            Person updatePerson = existingPerson.get();
+            Person updatePerson = existingPerson.get(); //updatePerson will have existingPerson's id
             updatePerson.setFirstName(person.getFirstName());
             updatePerson.setLastName(person.getLastName());
             updatePerson.setEmail(person.getEmail());
             updatePerson.setAge(person.getAge());
             updatePerson.setTaxNumber(person.getTaxNumber());
-            personRepository.save(updatePerson);
+            personRepository.save(updatePerson); //as it has existingPerson's id, it'll replace it
             return updatePerson;
         } else{
             throw new IllegalStateException("Person with id " + id + " doesn't exist");
