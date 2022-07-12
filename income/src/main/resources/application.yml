@@ -1,0 +1,26 @@
+#server:
+#  port: 8083
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#    fetch-registry: true
+#    register-with-eureka: true
+#
+#spring:
+#  application:
+#    name: income
+#  data:
+#    mongodb:
+#      authentication-database: admin
+#      username: rootuser
+#      password: rootpass
+#      database: person
+#      port: 27017
+#      host: localhost
+
+spring.application.name: income
+#^this is what we are calling this microservice (has to be same as config (which is called income.yml))
+spring.config.import: http://localhost:8888/
+#^this is telling the application where to find the config files

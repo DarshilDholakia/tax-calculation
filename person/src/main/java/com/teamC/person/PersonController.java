@@ -1,6 +1,8 @@
 package com.teamC.person;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +26,9 @@ public class PersonController {
     }
 
     @PostMapping
-    public Person addPerson(@RequestBody Person person){
-        return personService.addPerson(person);
+    public ResponseEntity<Person> addPerson(@RequestBody Person person){
+        Person newPerson = personService.addPerson(person);
+        return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
