@@ -1,5 +1,6 @@
 package com.teamC.person;
 
+import com.teamC.clients.Person;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

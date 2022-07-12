@@ -10,6 +10,7 @@
 		<module>eureka-server</module>
 		<module>config-server</module>
 		<module>apigw</module>
+		<module>clients</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

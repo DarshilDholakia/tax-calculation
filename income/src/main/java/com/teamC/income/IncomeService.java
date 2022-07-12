@@ -1,5 +1,7 @@
 package com.teamC.income;
 
+import com.teamC.clients.Person;
+import com.teamC.clients.PersonClient;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class IncomeService {
 
     private IncomeRepository incomeRepository;
 
+    private PersonClient personClient;
+
     public List<Income> getAllIncome(){
         return incomeRepository.findAll();
     }
@@ -22,16 +26,28 @@ public class IncomeService {
     }
 
     public List<Income> getAllIncomeByPersonId(String personId){
-        return incomeRepository.findAllByPersonId(personId);
+        Optional<Person> existingPerson = personClient.getPersonById(personId);
+        if (existingPerson.isPresent()){
+            return incomeRepository.findAllByPersonId(personId);
+        }
+        else{
+            throw new IllegalStateException("Person with id " + personId + " doesn't exist");
+        }
     }
 
     public Income addIncome(String personId, Income income){
-        Income newIncome = new Income();
-        newIncome.setPersonId(personId);
-        newIncome.setEmploymentIncome(income.getEmploymentIncome());
-        newIncome.setSelfEmploymentIncome(income.getSelfEmploymentIncome());
-        newIncome.setCapitalGains(income.getCapitalGains());
-        return incomeRepository.insert(newIncome);
+        Optional<Person> existingPerson = personClient.getPersonById(personId);
+        if (existingPerson.isPresent()){
+            Income newIncome = new Income();
+            newIncome.setPersonId(personId);
+            newIncome.setEmploymentIncome(income.getEmploymentIncome());
+            newIncome.setSelfEmploymentIncome(income.getSelfEmploymentIncome());
+            newIncome.setCapitalGains(income.getCapitalGains());
+            return incomeRepository.insert(newIncome);
+        }
+        else{
+            throw new IllegalStateException("Person with id " + personId + " doesn't exist");
+        }
     }
 
     public void deleteIncomeById(String id){

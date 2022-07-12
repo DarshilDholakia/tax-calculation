@@ -1,7 +1,7 @@
 package com.teamC.person;
 
+import com.teamC.clients.Person;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

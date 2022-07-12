@@ -1,5 +1,6 @@
 package com.teamC.person;
 
+import com.teamC.clients.Person;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

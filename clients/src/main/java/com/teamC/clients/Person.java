@@ -1,4 +1,4 @@
-package com.teamC.person;
+package com.teamC.clients;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
