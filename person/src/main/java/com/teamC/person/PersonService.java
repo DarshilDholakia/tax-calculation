@@ -30,12 +30,20 @@ public class PersonService {
     }
 
     public Person updatePersonById(String id, Person person){
-        Optional<Person> existingPerson = personRepository.findById(id);
+        Optional<Person> existingPerson = getPersonById(id);
         if (existingPerson.isPresent()) {
-            return personRepository.save(person);
+            Person updatePerson = existingPerson.get();
+            updatePerson.setFirstName(person.getFirstName());
+            updatePerson.setLastName(person.getLastName());
+            updatePerson.setEmail(person.getEmail());
+            updatePerson.setAge(person.getAge());
+            updatePerson.setTaxNumber(person.getTaxNumber());
+            personRepository.save(updatePerson);
+            return updatePerson;
         } else{
             throw new IllegalStateException("Person with id " + id + " doesn't exist");
         }
     }
+
 
 }
