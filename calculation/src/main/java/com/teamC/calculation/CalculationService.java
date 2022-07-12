@@ -16,26 +16,24 @@ import java.util.Optional;
 @Slf4j
 public class CalculationService {
     private CalculationRepository calculationRepository;
-    private IncomeClient incomeClient;
+//    private IncomeClient incomeClient;
     private RabbitMQMessageProducer rabbitMQMessageProducer;
     private RabbitMQConfig rabbitMQConfig;
     private PersonClient personClient;
 
-    public String pushPersonIdToQueue() {
-//        Optional<Person> existingPerson = personClient.getPersonById(personId);
-//        if(existingPerson.isPresent()) {
-//            Calculation nullCalculation = new Calculation();
-//            nullCalculation.setPersonId(personId);
-//            nullCalculation.setTax(null);
-//            Calculation insertedCalculation = calculationRepository.insert(nullCalculation);
-//            rabbitMQMessageProducer.publish(personId, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
-//            log.info("Person ID: {} pushed to queue and the Calculation ID is: {}", personId, insertedCalculation.getId());
-//            return insertedCalculation.getId();
-//        } else {
-//            throw new IllegalStateException("Person with ID " + personId + " doesn't exist!");
-//        }
-        System.out.println("You suck");
-        return null;
+    public String pushPersonIdToQueue(String personId) {
+        Optional<Person> existingPerson = personClient.getPersonById(personId);
+        if(existingPerson.isPresent()) {
+            Calculation nullCalculation = new Calculation();
+            nullCalculation.setPersonId(personId);
+            nullCalculation.setTax(null);
+            Calculation insertedCalculation = calculationRepository.insert(nullCalculation);
+            rabbitMQMessageProducer.publish(personId, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
+            log.info("Person ID: {} pushed to queue and the Calculation ID is: {}", personId, insertedCalculation.getId());
+            return insertedCalculation.getId();
+        } else {
+            throw new IllegalStateException("Person with ID " + personId + " doesn't exist!");
+        }
     }
 
 

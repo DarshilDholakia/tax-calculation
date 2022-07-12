@@ -13,14 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CalculationController {
     private CalculationService calculationService;
 
-//    @PostMapping("tax-calculations/person/{id}")
-//    public ResponseEntity<String> sendPersonIdToCalculateTax(@PathVariable("id") String personId) {
-//        return new ResponseEntity<>(calculationService.pushPersonIdToQueue(personId), HttpStatus.ACCEPTED);
-//    }
-    @GetMapping("tax-calculations/person")
-    public ResponseEntity<String> sendPersonIdToCalculateTax() {
-        return new ResponseEntity<>(calculationService.pushPersonIdToQueue(), HttpStatus.ACCEPTED);
+    @PostMapping("tax-calculations/person/{id}")
+    public ResponseEntity<String> sendPersonIdToCalculateTax(@PathVariable("id") String personId) {
+        return new ResponseEntity<>(calculationService.pushPersonIdToQueue(personId), HttpStatus.ACCEPTED);
     }
-
-
 }
