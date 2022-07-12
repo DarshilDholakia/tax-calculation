@@ -18,12 +18,10 @@ public class Income {
     private double employmentIncome;
     private double capitalGains;
 
-    public Income(String personId, double selfEmploymentIncome, double employmentIncome, double capitalGains) {
-        this.personId = personId;
+    public Income(double selfEmploymentIncome, double employmentIncome, double capitalGains) {
         this.selfEmploymentIncome = selfEmploymentIncome;
         this.employmentIncome = employmentIncome;
         this.capitalGains = capitalGains;
     }
-
 
 }

@@ -25,8 +25,13 @@ public class IncomeService {
         return incomeRepository.findAllByPersonId(personId);
     }
 
-    public Income addIncome(Income income){
-        return incomeRepository.insert(income);
+    public Income addIncome(String personId, Income income){
+        Income newIncome = new Income();
+        newIncome.setPersonId(personId);
+        newIncome.setEmploymentIncome(income.getEmploymentIncome());
+        newIncome.setSelfEmploymentIncome(income.getSelfEmploymentIncome());
+        newIncome.setCapitalGains(income.getCapitalGains());
+        return incomeRepository.insert(newIncome);
     }
 
     public void deleteIncomeById(String id){

@@ -11,7 +11,6 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("incomes")
 public class IncomeController {
-
     private IncomeService incomeService;
 
     @GetMapping("all")
@@ -19,19 +18,19 @@ public class IncomeController {
         return incomeService.getAllIncome();
     }
 
-    @GetMapping("personId/{id}")
-    public List<Income> getAllIncomeByPersonId(@PathVariable("id") String id){
+    @GetMapping("{person_id}")
+    public List<Income> getAllIncomeByPersonId(@PathVariable("person_id") String id){
         return incomeService.getAllIncomeByPersonId(id);
     }
 
-    @GetMapping("{id}")
-    public Optional<Income> getIncomeById(@PathVariable("id") String id){
-        return incomeService.getIncomeById(id);
+    @GetMapping("{income_id}")
+    public Optional<Income> getIncomeById(@PathVariable("income_id") String incomeId){
+        return incomeService.getIncomeById(incomeId);
     }
 
-    @PostMapping
-    public ResponseEntity<Income> addIncome(@RequestBody Income income){
-        Income newIncome = incomeService.addIncome(income);
+    @PostMapping("{person_id}")
+    public ResponseEntity<Income> addIncome(@PathVariable("person_id") String personId, @RequestBody Income income){
+        Income newIncome = incomeService.addIncome(personId, income);
         return new ResponseEntity<>(newIncome, HttpStatus.CREATED);
     }
 
