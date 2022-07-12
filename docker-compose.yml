@@ -19,9 +19,22 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
       - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
       - ME_CONFIG_MONGODB_SERVER=mongodb
+  rabbitmq:
+    image: rabbitmq:3.9.11-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - spring
 volumes:
   data: {}
 
+#networks:
+#  default:
+#    name: mongodb_network
 networks:
-  default:
-    name: mongodb_network
+  mongodb_network:
+    driver: bridge
+  spring:
+    driver: bridge
