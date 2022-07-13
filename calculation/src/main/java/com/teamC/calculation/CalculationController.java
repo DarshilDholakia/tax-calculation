@@ -18,20 +18,24 @@ public class CalculationController {
 
     @PostMapping("tax-calculations/person/{id}")
     public ResponseEntity<String> sendPersonIdToCalculateTax(@PathVariable("id") String personId) {
-
         return new ResponseEntity<>(calculationService.pushPersonIdToQueue(personId), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("tax-calculations/{id}")
-    public ResponseEntity <Calculation> getPersonByCalculationId(@PathVariable("id")String calculationId){
+    public ResponseEntity <Calculation> getCalculationByCalculationId(@PathVariable("id")String calculationId){
+        System.out.println("blah1");
         Calculation existingCalculation = calculationService.getCalculationByCalculationId(calculationId);
+        System.out.println("blah1.5");
         if(existingCalculation.getTax()==null){
-            return new ResponseEntity<>(existingCalculation,HttpStatus.PROCESSING);
+            System.out.println(existingCalculation.toString());
+            System.out.println("blah2");
+            ResponseEntity<Calculation> blah = new ResponseEntity<Calculation>(existingCalculation,HttpStatus.PROCESSING);
+            System.out.println(blah.toString());
+            return blah;
 
         }else{
             return new ResponseEntity<>(existingCalculation,HttpStatus.ACCEPTED);
         }
-
     }
 
     @GetMapping("tax-calculations/all")
@@ -43,13 +47,5 @@ public class CalculationController {
     public List<Calculation> getTaxCalculations(){
         throw new NotFoundException("You need to include Calculation Id in the path");
     }
-
-
-
-
-
-
-
-
 
 }

@@ -43,15 +43,9 @@ public class CalculationService {
                 throw new NotFoundException("Calculation ID: " + calculationId + " does not exist!");
             }
             return existingCalculation.get();
-
         }else{
             throw new NotFoundException("You need to include Calculation Id in the path");
-
-
-
         }
-
-
     }
 
     public String pushPersonIdToQueue(String personId) {
@@ -81,7 +75,6 @@ public class CalculationService {
             double employmentIncome = income.getEmploymentIncome();
             double selfEmploymentIncome = income.getSelfEmploymentIncome();
             double capitalGains = income.getCapitalGains();
-
             double employmentIncomeSum = employmentIncome + selfEmploymentIncome;
             double remainingSum = employmentIncomeSum;
             double tax = 0;
@@ -107,7 +100,6 @@ public class CalculationService {
                     tax += capitalGainsAboveAllowance * 0.1;
                 }
             }
-
             existingCalculation.setTax(tax);
             calculationRepository.save(existingCalculation);
         } else {
