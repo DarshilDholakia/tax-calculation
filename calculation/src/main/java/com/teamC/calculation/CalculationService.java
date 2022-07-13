@@ -1,13 +1,16 @@
 package com.teamC.calculation;
 
+
 import com.teamC.amqp.RabbitMQConfig;
 import com.teamC.amqp.RabbitMQMessageProducer;
+import com.teamC.calculation.exception.NotFoundException;
 import com.teamC.clients.income.Income;
 import com.teamC.clients.income.IncomeClient;
 import com.teamC.clients.person.Person;
 import com.teamC.clients.person.PersonClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,12 +35,30 @@ public class CalculationService {
         }
     }
 
+
+    public Calculation getCalculationByCalculationId(String calculationId){
+        if(calculationId.equals("aaa")){
+            throw new NotFoundException("You need to include Calculation Id in the path");
+//            throw new java.lang.Error ("You need to include Calculation Id in the path");
+        }else{
+            Optional<Calculation> existingCalculation=calculationRepository.findById(calculationId);
+            if (existingCalculation.isEmpty()){
+                throw new NotFoundException("Calculation ID: " + calculationId + " does not exist!");
+            }
+            return existingCalculation.get();
+
+
+        }
+
+
+    }
+
     public String pushPersonIdToQueue(String personId) {
         Optional<Person> existingPerson = personClient.getPersonById(personId);
         if (existingPerson.isPresent()) {
             Calculation nullCalculation = new Calculation();
             nullCalculation.setPersonId(personId);
-            nullCalculation.setTax(0.00);
+            nullCalculation.setTax(null);
             Calculation insertedCalculation = calculationRepository.insert(nullCalculation);
             rabbitMQMessageProducer.publish(personId, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
             log.info("Person ID: {} pushed to queue and the Calculation ID is: {}", personId, insertedCalculation.getId());
@@ -92,5 +113,9 @@ public class CalculationService {
             throw new IllegalStateException("No income for person with ID: " + personId + " !");
         }
         return existingCalculation;
+    }
+
+    public List<Calculation> getAllCalculation() {
+        return calculationRepository.findAll();
     }
 }
