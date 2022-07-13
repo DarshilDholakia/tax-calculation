@@ -38,13 +38,12 @@ public class CalculationService {
 
     public Calculation getCalculationByCalculationId(String calculationId){
         if(calculationId!=null){
-
             Optional<Calculation> existingCalculation=calculationRepository.findById(calculationId);
             if (existingCalculation.isEmpty()){
                 throw new NotFoundException("Calculation ID: " + calculationId + " does not exist!");
             }
             return existingCalculation.get();
-            
+
         }else{
             throw new NotFoundException("You need to include Calculation Id in the path");
 
