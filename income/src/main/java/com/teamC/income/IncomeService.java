@@ -1,5 +1,6 @@
 package com.teamC.income;
 
+import com.teamC.clients.income.Income;
 import com.teamC.clients.person.Person;
 import com.teamC.clients.person.PersonClient;
 import lombok.AllArgsConstructor;
@@ -24,10 +25,10 @@ public class IncomeService {
         return incomeRepository.findById(id);
     }
 
-    public List<Income> getAllIncomeByPersonId(String personId){
+    public Income getIncomeByPersonId(String personId){
         Optional<Person> existingPerson = personClient.getPersonById(personId);
         if (existingPerson.isPresent()){
-            return incomeRepository.findAllByPersonId(personId);
+            return incomeRepository.findByPersonId(personId);
         }
         else{
             throw new IllegalStateException("Person with id " + personId + " doesn't exist");

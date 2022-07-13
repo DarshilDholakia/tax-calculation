@@ -1,4 +1,4 @@
-package com.teamC.income;
+package com.teamC.clients.income;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

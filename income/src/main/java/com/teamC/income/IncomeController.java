@@ -1,4 +1,5 @@
 package com.teamC.income;
+import com.teamC.clients.income.Income;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class IncomeController {
         return incomeService.getAllIncome();
     }
 
-    @GetMapping("{person_id}")
-    public List<Income> getAllIncomeByPersonId(@PathVariable("person_id") String id){
-        return incomeService.getAllIncomeByPersonId(id);
+    @GetMapping("person/{person_id}")
+    public Income getIncomeByPersonId(@PathVariable("person_id") String id){
+        return incomeService.getIncomeByPersonId(id);
     }
 
     @GetMapping("{income_id}")

@@ -1,6 +1,5 @@
 package com.teamC.calculation.rabbitmq;
 
-import com.teamC.amqp.RabbitMQConfig;
 import com.teamC.calculation.CalculationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class CalculationConsumer {
     private final CalculationService calculationService;
 
-    @RabbitListener(queues = RabbitMQConfig.notificationQueue)
+    @RabbitListener(queues = "${rabbitmq.queue.notification}")
     public void consumer(String personId) {
         log.info("Consumed {} from queue ", personId);
         calculationService.calculateTaxAndPost(personId);
