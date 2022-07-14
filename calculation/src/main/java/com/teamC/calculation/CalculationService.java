@@ -48,14 +48,15 @@ public class CalculationService {
         }
     }
 
-    public String pushPersonIdToQueue(String personId) {
-        Optional<Person> existingPerson = personClient.getPersonById(personId);
+    public String pushPersonIdToQueue(String authorizationHeader, String personId) {
+        Optional<Person> existingPerson = personClient.getPersonById(authorizationHeader, personId);
         if (existingPerson.isPresent()) {
             Calculation nullCalculation = new Calculation();
             nullCalculation.setPersonId(personId);
             nullCalculation.setTax(null);
             Calculation insertedCalculation = calculationRepository.insert(nullCalculation);
-            rabbitMQMessageProducer.publish(personId, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
+            Payload payload = Payload.builder().authorizationnHeader(authorizationHeader).personId(personId).build();
+            rabbitMQMessageProducer.publish(payload, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
             log.info("Person ID: {} pushed to queue and the Calculation ID is: {}", personId, insertedCalculation.getId());
             return insertedCalculation.getId();
         } else {
@@ -63,10 +64,8 @@ public class CalculationService {
         }
     }
 
-
-    //todo: use income client to fetch income data, calculate the tax, post using calculationRepository
-    public Calculation calculateTaxAndPost(String personId) {
-        Income income = incomeClient.getIncomeByPersonId(personId);
+    public Calculation calculateTaxAndPost(String authorizationHeader, String personId) {
+        Income income = incomeClient.getIncomeByPersonId(authorizationHeader, personId);
         Calculation existingCalculation = getCalculationByPersonId(personId);
         System.out.println(existingCalculation.toString());
         System.out.println(income.toString());

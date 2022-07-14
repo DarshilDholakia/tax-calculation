@@ -3,6 +3,7 @@ package com.teamC.clients.income;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
 public interface IncomeClient {
 
     @GetMapping("incomes/person/{person_id}")
-    public Income getIncomeByPersonId(@PathVariable("person_id") String id);
+    public Income getIncomeByPersonId(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("person_id") String id);
 }

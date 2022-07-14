@@ -1,6 +1,7 @@
 package com.teamC.calculation.rabbitmq;
 
 import com.teamC.calculation.CalculationService;
+import com.teamC.calculation.Payload;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -15,11 +16,11 @@ import java.util.concurrent.TimeUnit;
 public class CalculationConsumer {
     private final CalculationService calculationService;
     @RabbitListener(queues = "${rabbitmq.queue.notification}")
-    public void consumer(String personId) {
-        log.info("Consumed {} from queue ", personId);
+    public void consumer(Payload payload) {
+        log.info("Consumed {} from queue ", payload);
         try {
             TimeUnit.SECONDS.sleep(10); //delay by 10sec
-            calculationService.calculateTaxAndPost(personId);
+            calculationService.calculateTaxAndPost(payload.getAuthorizationnHeader(), payload.getPersonId());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -19,9 +19,10 @@ public class IncomeController {
         return incomeService.getAllIncome();
     }
 
+    // todo: this needs to return a List<Income> not just singular Income
     @GetMapping("person/{person_id}")
-    public Income getIncomeByPersonId(@PathVariable("person_id") String id){
-        return incomeService.getIncomeByPersonId(id);
+    public Income getIncomeByPersonId(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("person_id") String id){
+        return incomeService.getIncomeByPersonId(authorizationHeader, id);
     }
 
     @GetMapping("{income_id}")
@@ -30,8 +31,8 @@ public class IncomeController {
     }
 
     @PostMapping("{person_id}")
-    public ResponseEntity<Income> addIncome(@PathVariable("person_id") String personId, @RequestBody Income income){
-        Income newIncome = incomeService.addIncome(personId, income);
+    public ResponseEntity<Income> addIncome(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("person_id") String personId, @RequestBody Income income){
+        Income newIncome = incomeService.addIncome(authorizationHeader, personId, income);
         return new ResponseEntity<>(newIncome, HttpStatus.CREATED);
     }
 
