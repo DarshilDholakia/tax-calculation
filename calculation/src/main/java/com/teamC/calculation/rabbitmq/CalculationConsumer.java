@@ -18,7 +18,7 @@ public class CalculationConsumer {
     public void consumer(String personId) {
         log.info("Consumed {} from queue ", personId);
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(10); //delay by 10sec
             calculationService.calculateTaxAndPost(personId);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
