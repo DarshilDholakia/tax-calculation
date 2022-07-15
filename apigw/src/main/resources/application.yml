@@ -1,0 +1,29 @@
+#server:
+#  port: 8085
+#spring:
+#  application:
+#    name: api-gateway
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: calculation
+#          uri: lb://CALCULATION
+#          predicates:
+#            - Path=/tax-calculations/**
+#        - id: person
+#          uri: lb://PERSON
+#          predicates:
+#            - Path=/person/**
+#        - id: income
+#          uri: lb://INCOME
+#          predicates:
+#            - Path=/incomes/**
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#    fetch-registry: true
+#    register-with-eureka: true
+
+spring.application.name: apigw
+spring.config.import: http://localhost:8888/
