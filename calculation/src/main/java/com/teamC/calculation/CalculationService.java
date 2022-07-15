@@ -10,7 +10,6 @@ import com.teamC.clients.person.Person;
 import com.teamC.clients.person.PersonClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class CalculationService {
         }
     }
 
-    public String pushPersonIdToQueue(String authorizationHeader, String personId) {
+    public String pushPayloadToQueue(String authorizationHeader, String personId) {
         Optional<Person> existingPerson = personClient.getPersonById(authorizationHeader, personId);
         if (existingPerson.isPresent()) {
             Calculation nullCalculation = new Calculation();

@@ -33,3 +33,6 @@ public class CalculationSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 }
+
+//1.configure these two method, the first one is setting username, password and the role. the role is user
+//2.second method is to define which part(path ** -tax-calculations) need to authenicate

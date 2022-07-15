@@ -13,3 +13,5 @@ public interface PersonClient {
     @GetMapping("person/{id}")
     public Optional<Person> getPersonById(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("id") String id);
 }
+//income service go through the personclient to access this method through person authorization , and this method will be in the person controller
+//request need to be authenrized.

@@ -1,13 +1,11 @@
 package com.teamC.calculation;
 
-import com.teamC.calculation.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @AllArgsConstructor
@@ -17,7 +15,7 @@ public class CalculationController {
 
     @PostMapping("person/{id}")
     public ResponseEntity<String> sendPersonIdToCalculateTax(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("id") String personId) {
-        return new ResponseEntity<>(calculationService.pushPersonIdToQueue(authorizationHeader, personId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(calculationService.pushPayloadToQueue(authorizationHeader, personId), HttpStatus.ACCEPTED);
     }
 
 //    @RequestHeader(value = "Authorization", required = true) String authorizationHeader,
