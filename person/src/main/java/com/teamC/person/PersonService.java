@@ -1,9 +1,9 @@
 package com.teamC.person;
 
 import com.teamC.clients.person.Person;
-import com.teamC.taxcalculation.exception.InvalidRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.teamC.taxcalculation.exception.InvalidRequestException;
 
 import java.util.List;
 import java.util.Optional;
