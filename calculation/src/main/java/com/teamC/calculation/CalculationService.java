@@ -3,6 +3,7 @@ package com.teamC.calculation;
 
 import com.teamC.amqp.RabbitMQConfig;
 import com.teamC.amqp.RabbitMQMessageProducer;
+import com.teamC.calculation.exception.InvalidRequestException;
 import com.teamC.calculation.exception.NotFoundException;
 import com.teamC.clients.income.Income;
 import com.teamC.clients.income.IncomeClient;
@@ -26,6 +27,7 @@ public class CalculationService {
     private PersonClient personClient;
 
     public Calculation getCalculationByPersonId(String personId) {
+        validateId(personId);
         if (calculationRepository.findByPersonId(personId).isEmpty()) {
             throw new IllegalStateException("Calculation for person with ID: " + personId + " does not exist!");
         } else {
@@ -35,19 +37,17 @@ public class CalculationService {
     }
 
 
-    public Calculation getCalculationByCalculationId(String calculationId){
-        if(calculationId!=null){
-            Optional<Calculation> existingCalculation=calculationRepository.findById(calculationId);
-            if (existingCalculation.isEmpty()){
-                throw new NotFoundException("Calculation ID: " + calculationId + " does not exist!");
-            }
-            return existingCalculation.get();
-        }else{
-            throw new NotFoundException("You need to include Calculation Id in the path");
+    public Calculation getCalculationByCalculationId(String calculationId) {
+        validateId(calculationId);
+        Optional<Calculation> existingCalculation = calculationRepository.findById(calculationId);
+        if (existingCalculation.isEmpty()) {
+            throw new NotFoundException("Calculation ID: " + calculationId + " does not exist!");
         }
+        return existingCalculation.get();
     }
 
     public String pushPayloadToQueue(String authorizationHeader, String personId) {
+        validateId(personId);
         Optional<Person> existingPerson = personClient.getPersonById(authorizationHeader, personId);
         if (existingPerson.isPresent()) {
             Calculation nullCalculation = new Calculation();
@@ -64,10 +64,9 @@ public class CalculationService {
     }
 
     public Calculation calculateTaxAndPost(String authorizationHeader, String personId) {
+        validateId(personId);
         Income income = incomeClient.getIncomeByPersonId(authorizationHeader, personId);
         Calculation existingCalculation = getCalculationByPersonId(personId);
-        System.out.println(existingCalculation.toString());
-        System.out.println(income.toString());
 
         if (income != null) {
             double employmentIncome = income.getEmploymentIncome();
@@ -109,4 +108,16 @@ public class CalculationService {
     public List<Calculation> getAllCalculation() {
         return calculationRepository.findAll();
     }
+
+    public void validateId(String id){
+        if (!(id.matches("[a-zA-Z0-9]*") && id.length()==24)){
+            throw new InvalidRequestException("Id is not valid");
+        };
+    }
+
+//    public Boolean validateId(String id) {
+//        if (id.matches("[a-zA-Z0-9]*") && id.length()==24) {
+//            return true;
+//        } else throw new InvalidRequestException("Please enter a valid ID");
+//    }
 }
