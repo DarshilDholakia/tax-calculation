@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Payload {
     private String authorizationnHeader;
-    //value from postman when make request
+    //get information from feign client, it could use thses information to access other microserivces.
+    //value from postman when make request(username password will become string )
     private String personId;
 }

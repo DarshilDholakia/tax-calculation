@@ -4,6 +4,7 @@ import com.teamC.clients.income.Income;
 import com.teamC.clients.person.Person;
 import com.teamC.clients.person.PersonClient;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +12,14 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class IncomeService {
 
     private IncomeRepository incomeRepository;
 
     private PersonClient personClient;
+
+
 
     public List<Income> getAllIncome(){
         return incomeRepository.findAll();
