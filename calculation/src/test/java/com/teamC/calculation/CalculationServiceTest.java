@@ -26,11 +26,16 @@ class CalculationServiceTest {
     private RabbitMQConfig rabbitMQConfig;
     private RabbitMQMessageProducer rabbitMQMessageProducer;
 
+
+
     @BeforeEach
     void setUp() {
         calculationRepository = mock(CalculationRepository.class);
         underTest = new CalculationService(calculationRepository, incomeClient, rabbitMQMessageProducer, rabbitMQConfig, personClient);
-
+        incomeClient = mock(IncomeClient.class);
+        personClient = mock(PersonClient.class);
+        rabbitMQConfig = mock(RabbitMQConfig.class);
+        rabbitMQMessageProducer = mock(RabbitMQMessageProducer.class);
     }
 
     @Test
@@ -119,8 +124,11 @@ class CalculationServiceTest {
         //GIVEN
         String authorizationHeader = "authorizationHeader";
         String personId = "62d14f220bd8dd05b9237681";
+        String calculationId = "62d1595dadbe3e3ab9f9ae21";
+        Calculation nullCalc = new Calculation(calculationId, personId, null);
         given(incomeClient.getIncomeByPersonId(authorizationHeader, personId)).willReturn(null);
-        given(underTest.getCalculationByPersonId(personId)).willReturn(null);
+        doReturn(Optional.of(nullCalc)).when(calculationRepository).findByPersonId(personId);
+        given(underTest.getCalculationByPersonId(personId)).willReturn(nullCalc);
         //THEN
         assertThatThrownBy(() -> {
             //WHEN
@@ -128,7 +136,6 @@ class CalculationServiceTest {
         }).hasMessage("No income for person with ID: " + personId + " !");
     }
 
-    @Disabled
     @Test
     void returnCorrectCalculationObjectForCalculateTaxAndPost() {
         //GIVEN
