@@ -204,7 +204,7 @@ class PersonServiceTest {
     @Test
     void validatesPersonWithValidEmail() {
         //given
-        String email = "blah@hotmail.co.uk";
+        String email = "blah@hotmail.com";
         Person person = new Person("62d54d09057f4e1f5068e8ec", "John", "Lewis", email, 21, 6565865L);
 
         //when/then
