@@ -47,27 +47,27 @@ public class CalculationService {
     }
 
     public String pushPayloadToQueue(String authorizationHeader, String personId) {
-//        validateId(personId);
+        validateId(personId);
         Optional<Person> existingPerson = personClient.getPersonById(authorizationHeader, personId);
-        throw new NotFoundException("Person with ID " + personId + " doesn't exist!");
-//        if (existingPerson.isPresent()) {
-//            Calculation nullCalculation = new Calculation();
-//            nullCalculation.setPersonId(personId);
-//            nullCalculation.setTax(null);
-//            Calculation insertedCalculation = calculationRepository.insert(nullCalculation);
-//            Payload payload = Payload.builder().authorizationnHeader(authorizationHeader).personId(personId).build();
-//            rabbitMQMessageProducer.publish(payload, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
-//            log.info("Person ID: {} pushed to queue and the Calculation ID is: {}", personId, insertedCalculation.getId());
-//            return insertedCalculation.getId();
-//        } else {
-//            throw new IllegalStateException("Person with ID " + personId + " doesn't exist!");
-//        }
+        if (existingPerson.isPresent()) {
+            Calculation nullCalculation = new Calculation();
+            nullCalculation.setPersonId(personId);
+            nullCalculation.setTax(null);
+            Calculation insertedCalculation = calculationRepository.insert(nullCalculation);
+            Payload payload = Payload.builder().authorizationnHeader(authorizationHeader).personId(personId).build();
+            rabbitMQMessageProducer.publish(payload, rabbitMQConfig.getInternalExchange(), rabbitMQConfig.getInternalNotificationRoutingKey());
+            log.info("Person ID: {} pushed to queue and the Calculation ID is: {}", personId, insertedCalculation.getId());
+            return insertedCalculation.getId();
+        } else {
+            throw new IllegalStateException("Person with ID " + personId + " doesn't exist!");
+        }
     }
 
     public Calculation calculateTaxAndPost(String authorizationHeader, String personId) {
         validateId(personId);
         Income income = incomeClient.getIncomeByPersonId(authorizationHeader, personId);
         Calculation existingCalculation = getCalculationByPersonId(personId);
+//        throw new IllegalStateException("No income for person with ID: " + personId + " !");
 
         if (income != null) {
             double employmentIncome = income.getEmploymentIncome();

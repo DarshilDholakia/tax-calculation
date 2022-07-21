@@ -27,18 +27,15 @@ class CalculationServiceTest {
     private RabbitMQConfig rabbitMQConfig;
     private RabbitMQMessageProducer rabbitMQMessageProducer;
 
-
-
     @BeforeEach
     void setUp() {
         calculationRepository = mock(CalculationRepository.class);
-        underTest = new CalculationService(calculationRepository, incomeClient, rabbitMQMessageProducer, rabbitMQConfig, personClient);
-//        incomeClient = mock(IncomeClient.class);
         incomeClient = Mockito.mock(IncomeClient.class);
-//        personClient = mock(PersonClient.class);
+
         personClient = Mockito.mock(PersonClient.class);
         rabbitMQConfig = mock(RabbitMQConfig.class);
         rabbitMQMessageProducer = mock(RabbitMQMessageProducer.class);
+        underTest = new CalculationService(calculationRepository, incomeClient, rabbitMQMessageProducer, rabbitMQConfig, personClient);
     }
 
     @Test
@@ -125,6 +122,7 @@ class CalculationServiceTest {
     @Test
     void throwExceptionWhenNoIncomeFoundForCalculateTaxAndPost() {
         //GIVEN
+        CalculationService calculationService = Mockito.spy(new CalculationService(calculationRepository, incomeClient, rabbitMQMessageProducer, rabbitMQConfig, personClient));
         String authorizationHeader = "authorizationHeader";
         String personId = "62d14f220bd8dd05b9237681";
         String calculationId = "62d1595dadbe3e3ab9f9ae21";
@@ -132,7 +130,7 @@ class CalculationServiceTest {
         given(incomeClient.getIncomeByPersonId(authorizationHeader, personId)).willReturn(null);
 //        doReturn(Optional.of(nullCalc)).when(calculationRepository).findByPersonId(personId);
         given(calculationRepository.findByPersonId(personId)).willReturn(Optional.of(nullCalc));
-        given(underTest.getCalculationByPersonId(personId)).willReturn(nullCalc);
+        given(calculationService.getCalculationByPersonId(personId)).willReturn(nullCalc);
         //THEN
         assertThatThrownBy(() -> {
             //WHEN
