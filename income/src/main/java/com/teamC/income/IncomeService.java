@@ -25,8 +25,8 @@ public class IncomeService {
         return incomeRepository.findById(id);
     }
 
-    public Income getIncomeByPersonId(String authorizationHeader, String personId){
-        Optional<Person> existingPerson = personClient.getPersonById(authorizationHeader, personId);
+    public Income getIncomeByPersonId(String personId){
+        Optional<Person> existingPerson = personClient.getPersonById(personId);
         if (existingPerson.isPresent()){
             return incomeRepository.findByPersonId(personId);
         }
@@ -35,8 +35,8 @@ public class IncomeService {
         }
     }
 
-    public Income addIncome(String authorizationHeader, String personId, Income income){
-        Optional<Person> existingPerson = personClient.getPersonById(authorizationHeader, personId);
+    public Income addIncome(String personId, Income income){
+        Optional<Person> existingPerson = personClient.getPersonById(personId);
         if (existingPerson.isPresent()){
             Income newIncome = new Income();
             newIncome.setPersonId(personId);

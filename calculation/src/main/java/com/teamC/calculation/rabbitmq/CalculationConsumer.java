@@ -16,11 +16,11 @@ import java.util.concurrent.TimeUnit;
 public class CalculationConsumer {
     private final CalculationService calculationService;
     @RabbitListener(queues = "${rabbitmq.queue.notification}")
-    public void consumer(Payload payload) {
-        log.info("Consumed {} from queue ", payload);
+    public void consumer(String personId) {
+        log.info("Consumed {} from queue ", personId);
         try {
             TimeUnit.SECONDS.sleep(10); //delay by 10sec
-            calculationService.calculateTaxAndPost(payload.getAuthorizationnHeader(), payload.getPersonId());
+            calculationService.calculateTaxAndPost(personId);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -11,5 +11,5 @@ import java.util.List;
 public interface IncomeClient {
 
     @GetMapping("incomes/person/{person_id}")
-    public Income getIncomeByPersonId(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("person_id") String id);
+    public Income getIncomeByPersonId(@PathVariable("person_id") String id);
 }

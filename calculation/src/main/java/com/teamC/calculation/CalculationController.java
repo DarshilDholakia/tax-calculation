@@ -14,8 +14,8 @@ public class CalculationController {
     private CalculationService calculationService;
 
     @PostMapping("person/{id}")
-    public ResponseEntity<String> sendPersonIdToCalculateTax(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable("id") String personId) {
-        return new ResponseEntity<>(calculationService.pushPayloadToQueue(authorizationHeader, personId), HttpStatus.ACCEPTED);
+    public ResponseEntity<String> sendPersonIdToCalculateTax(@PathVariable("id") String personId) {
+        return new ResponseEntity<>(calculationService.pushPayloadToQueue(personId), HttpStatus.ACCEPTED);
     }
 
 //    @RequestHeader(value = "Authorization", required = true) String authorizationHeader,
