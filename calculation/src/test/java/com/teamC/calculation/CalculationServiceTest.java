@@ -33,11 +33,10 @@ class CalculationServiceTest {
     void setUp() {
         calculationRepository = mock(CalculationRepository.class);
         underTest = new CalculationService(calculationRepository, incomeClient, rabbitMQMessageProducer, rabbitMQConfig, personClient);
-        incomeClient = mock(IncomeClient.class);
-//        incomeClient = Mockito.spy(IncomeClient.class);
-        personClient = mock(PersonClient.class);
-//        personClient = Mockito.spy(PersonClient.class);
-
+//        incomeClient = mock(IncomeClient.class);
+        incomeClient = Mockito.mock(IncomeClient.class);
+//        personClient = mock(PersonClient.class);
+        personClient = Mockito.mock(PersonClient.class);
         rabbitMQConfig = mock(RabbitMQConfig.class);
         rabbitMQMessageProducer = mock(RabbitMQMessageProducer.class);
     }
