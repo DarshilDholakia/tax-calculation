@@ -9,6 +9,7 @@ import com.teamC.clients.person.PersonClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.Optional;
 
@@ -33,7 +34,10 @@ class CalculationServiceTest {
         calculationRepository = mock(CalculationRepository.class);
         underTest = new CalculationService(calculationRepository, incomeClient, rabbitMQMessageProducer, rabbitMQConfig, personClient);
         incomeClient = mock(IncomeClient.class);
+//        incomeClient = Mockito.spy(IncomeClient.class);
         personClient = mock(PersonClient.class);
+//        personClient = Mockito.spy(PersonClient.class);
+
         rabbitMQConfig = mock(RabbitMQConfig.class);
         rabbitMQMessageProducer = mock(RabbitMQMessageProducer.class);
     }
@@ -127,7 +131,8 @@ class CalculationServiceTest {
         String calculationId = "62d1595dadbe3e3ab9f9ae21";
         Calculation nullCalc = new Calculation(calculationId, personId, null);
         given(incomeClient.getIncomeByPersonId(authorizationHeader, personId)).willReturn(null);
-        doReturn(Optional.of(nullCalc)).when(calculationRepository).findByPersonId(personId);
+//        doReturn(Optional.of(nullCalc)).when(calculationRepository).findByPersonId(personId);
+        given(calculationRepository.findByPersonId(personId)).willReturn(Optional.of(nullCalc));
         given(underTest.getCalculationByPersonId(personId)).willReturn(nullCalc);
         //THEN
         assertThatThrownBy(() -> {
@@ -146,6 +151,8 @@ class CalculationServiceTest {
         Calculation nullCalc = new Calculation(calculationId, personId, null);
         Calculation finalCalc = new Calculation(calculationId, personId, 69303.30);
         given(incomeClient.getIncomeByPersonId(authorizationHeader, personId)).willReturn(income);
+//        doReturn(income).when(incomeClient).getIncomeByPersonId(authorizationHeader, personId);
+        given(calculationRepository.findByPersonId(personId)).willReturn(Optional.of(nullCalc));
         given(underTest.getCalculationByPersonId(personId)).willReturn(nullCalc);
         given(calculationRepository.save(finalCalc)).willReturn(finalCalc);
         //WHEN
