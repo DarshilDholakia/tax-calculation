@@ -18,6 +18,7 @@ import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
@@ -69,7 +70,10 @@ class PersonServiceTest {
 
     @Test
     void deletePersonById() {
-
+        String id = "FFFFFFFFFFFFFFFFFFFFFFFF";
+        underTest.deletePersonById(id);
+        then(personRepository).should().deleteById(id); //makes sure .deleteById method is called
+        then(personRepository).shouldHaveNoMoreInteractions(); //makes sure personRepository ha
     }
 
     @Test

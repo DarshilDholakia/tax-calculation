@@ -39,6 +39,7 @@ public class PersonController {
 
     @PutMapping("{id}")
     public Person updatePersonById(@PathVariable("id") String id, @RequestBody Person person){
+        personService.validateId(id);
         return personService.updatePersonById(id, person);
     }
 }
