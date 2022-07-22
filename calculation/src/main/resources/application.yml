@@ -30,6 +30,8 @@
 #  routing-keys:
 #    internal-notification: internal.notification.routing-key
 
+spring.cloud.consul.host: localhost
+spring.cloud.consul.port: 8500
 spring.application.name: calculation
 #^this is what we are calling this microservice (has to be same as config (which is called calculation.yml))
 spring.config.import: http://localhost:8888/

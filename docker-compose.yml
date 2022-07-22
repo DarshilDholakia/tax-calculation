@@ -27,6 +27,12 @@ services:
       - "15672:15672"
     networks:
       - spring
+  consul:
+    image: hashicorp/consul
+    container_name: consul
+    ports:
+      - "8500:8500"
+    command: "agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=127.0.0.1"
 volumes:
   data: {}
 
@@ -34,7 +40,5 @@ volumes:
 #  default:
 #    name: mongodb_network
 networks:
-  mongodb_network:
-    driver: bridge
   spring:
     driver: bridge
