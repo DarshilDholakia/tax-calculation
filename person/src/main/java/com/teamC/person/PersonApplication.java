@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 //@EnableEurekaClient
-@EnableDiscoveryClient
+@EnableDiscoveryClient // added to enable service discovery using Consul instead of Eureka
 public class PersonApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersonApplication.class, args);

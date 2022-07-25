@@ -21,8 +21,6 @@
 #      host: localhost
 
 server.error.include-message: always
-#spring.cloud.consul.host: 127.0.0.1
-#spring.cloud.consul.port: 8500
 spring.application.name: person
 #^this is what we are calling this microservice (has to be same as config (which is called person.yml))
 spring.config.import: http://localhost:8888/
