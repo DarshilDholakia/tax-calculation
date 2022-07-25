@@ -63,8 +63,8 @@ public class PersonService {
         } else if (person.getLastName().equals("")){
             throw new InvalidRequestException("Last name cannot be blank");
         } else if (person.getEmail().equals("")) {
-            throw new InvalidRequestException("Email name cannot be blank");
-        } else if (person.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
+            throw new InvalidRequestException("Email cannot be blank");
+        } else if ((person.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) == false){
             throw new InvalidRequestException("Email is invalid");
         } else if (String.valueOf(person.getAge()).equals("")){
             throw new InvalidRequestException("Age cannot be blank");
