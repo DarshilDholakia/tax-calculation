@@ -76,6 +76,11 @@
 <!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
 <!--        </dependency>-->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- Note that Actuator dependency is added to the application here. Actuator automatically configures and enables monitoring endpoints for an application. Application health is exposed /health URI. In the next step, we will add this endpoint to register with Consul.-->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-discovery</artifactId>
         </dependency>
