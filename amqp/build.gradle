@@ -10,6 +10,8 @@ plugins {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp:2.5.7'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
 
 description = 'amqp'
