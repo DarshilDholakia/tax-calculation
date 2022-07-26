@@ -4,16 +4,24 @@ import com.teamC.calculation.exception.InvalidRequestException;
 import com.teamC.clients.person.Person;
 //import com.teamC.tax-calculation.exception.InvalidRequestException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
 public class PersonService {
 
     private PersonRepository personRepository;
+
+//    @Autowired
+//    public void setPersonRepository(PersonRepository personRepository) {
+//        this.personRepository = personRepository;
+//    }
 
     public List<Person> getAllPeople(){
         return personRepository.findAll();
@@ -59,15 +67,22 @@ public class PersonService {
     }
 
     public void validatePersonInputProperties(Person person){
+
+
         if (person.getFirstName().equals("")){
             throw new InvalidRequestException("First name cannot be blank");
         } else if (person.getLastName().equals("")){
             throw new InvalidRequestException("Last name cannot be blank");
         } else if (person.getEmail().equals("")) {
             throw new InvalidRequestException("Email cannot be blank");
-        } else if ((person.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) == false){
+        }
+        String regex = "[\\w-]{1,20}@\\w{2,20}\\.\\w{2,3}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(person.getEmail());
+        if (!matcher.matches()){
             throw new InvalidRequestException("Email is invalid");
-        } else if (String.valueOf(person.getAge()).equals("")){
+        }
+        else if (String.valueOf(person.getAge()).equals("")){
             throw new InvalidRequestException("Age cannot be blank");
         } else if ((person.getAge())<0){
             throw new InvalidRequestException("Age cannot be negative");

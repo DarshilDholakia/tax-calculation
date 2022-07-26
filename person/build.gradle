@@ -19,6 +19,9 @@ dependencies {
     implementation project(':calculation')
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.7'
     implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.0.3'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
 
 description = 'person'
