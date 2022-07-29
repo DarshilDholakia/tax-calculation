@@ -10,6 +10,27 @@ plugins {
 
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-server:3.0.4'
+//    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.7'
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+//                'Implementation-Version': version,
+                'Main-Class': 'com.teamC.config.ConfigServerApplication'
+    }
+    archiveBaseName = project.name + '-all'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } } {
+        exclude 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+    with jar
 }
 
 description = 'config-server'
