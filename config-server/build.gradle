@@ -10,7 +10,15 @@ plugins {
 
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-server:3.0.4'
-//    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.7'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.7'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+//            {
+//        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//    }
+}
+
+configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 }
 
 //create a single Jar with all dependencies

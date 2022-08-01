@@ -32,11 +32,14 @@ services:
       - spring
 
   consul:
-    image: hashicorp/consul
+    image: hashicorp/consul:latest
     container_name: consul
+    stdin_open: true
+    tty: true
     ports:
       - "8500:8500"
-    command: "agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=127.0.0.1"
+#    command: "agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=127.0.0.1"
+    command: "agent -server -bootstrap-expect=1 -ui -bind=127.0.0.1"
 
   config-server:
     image: darshildholakia/config-server:latest
