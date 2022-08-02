@@ -2,6 +2,7 @@ version: "3.8"
 services:
   mongodb:
     image: mongo
+    container_name: mongodb
     ports:
       - 27017:27017
     volumes:
@@ -32,7 +33,7 @@ services:
     container_name: consul
     ports:
       - "8500:8500"
-    command: "agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=127.0.0.1"
+    command: "agent -server -bootstrap-expect=1 -ui -bind=127.0.0.1"
 
 volumes:
   data: {}
