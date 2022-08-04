@@ -29,7 +29,7 @@ services:
     networks:
       - spring
   consul:
-    image: hashicorp/consul
+    image: hashicorp/consul:latest
     container_name: consul
     ports:
       - "8500:8500"
