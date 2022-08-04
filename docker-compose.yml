@@ -3,6 +3,7 @@ services:
 
   mongodb:
     image: mongo
+    container_name: mongodb
     ports:
       - 27017:27017
     volumes:
@@ -32,24 +33,11 @@ services:
       - spring
 
   consul:
-    image: hashicorp/consul:latest
+    image: consul
     container_name: consul
-    stdin_open: true
-    tty: true
     ports:
       - "8500:8500"
-#    command: "agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=127.0.0.1"
-    command: "agent -server -bootstrap-expect=1 -ui -bind=127.0.0.1"
-
-  config-server:
-    image: darshildholakia/config-server:latest
-    container_name: config-server
-    ports:
-      - "8888:8888"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
+    command: "agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0"
 
 volumes:
   data: {}
