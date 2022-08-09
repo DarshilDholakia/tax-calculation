@@ -6,6 +6,8 @@ services:
     container_name: mongodb
     ports:
       - 27017:27017
+    networks:
+      - mongodb
     volumes:
       - data:/data
     environment:
@@ -18,6 +20,8 @@ services:
     restart: always
     ports:
       - 8081:8081
+    networks:
+      - mongodb
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
       - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
@@ -37,6 +41,8 @@ services:
     container_name: consul
     ports:
       - "8500:8500"
+    networks:
+      - spring
     command: "agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0"
 
   config-server:
@@ -44,16 +50,63 @@ services:
     container_name: config-server
     ports:
       - "8888:8888"
+    networks:
+      - spring
 
   apigw:
     image: darshildholakia/apigw
     container_name: apigw
     ports:
       - "8085:8085"
+    networks:
+      - spring
+    depends_on:
+      - consul
+
+  person:
+    image: darshildholakia/person
+    container_name: person
+    ports:
+      - "8082:8082"
+    networks:
+      - spring
+      - mongodb
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - consul
+
+  income:
+    image: darshildholakia/income
+    container_name: income
+    ports:
+      - "8083:8083"
+    networks:
+      - spring
+      - mongodb
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - consul
+
+  calculation:
+    image: darshildholakia/calculation
+    container_name: calculation
+    ports:
+      - "8084:8084"
+    networks:
+      - spring
+      - mongodb
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - consul
 
 volumes:
   data: {}
 
 networks:
   spring:
+    driver: bridge
+  mongodb:
     driver: bridge

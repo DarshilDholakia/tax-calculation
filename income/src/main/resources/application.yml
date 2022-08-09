@@ -22,5 +22,5 @@
 
 spring.application.name: income
 #^this is what we are calling this microservice (has to be same as config (which is called income.yml))
-spring.config.import: http://localhost:8888/
+spring.config.import: optional:configserver:http://config-server:8888
 #^this is telling the application where to find the config files
