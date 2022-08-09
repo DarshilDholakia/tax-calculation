@@ -3,9 +3,38 @@
  *
  * This project uses @Incubating APIs which are subject to change.
  */
-
 plugins {
-    id 'com.teamC.java-conventions'
+    id 'application'
+    id 'org.springframework.boot' version '2.6.6'
+//    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+}
+application {
+    mainClass = "com.teamC.person.PersonApplication"
+}
+mainClassName = "com.teamC.person.PersonApplication"
+ext {
+    set('springCloudVersion', "2021.0.1")
+    set('javaVersion', 11)
+}
+compileJava{
+    sourceCompatibility("${javaVersion}")
+    targetCompatibility("${javaVersion}")
+}
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {

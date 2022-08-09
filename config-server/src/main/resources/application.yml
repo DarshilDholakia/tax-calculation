@@ -1,4 +1,4 @@
-spring.main.web-application-type: none
+#spring.main.web-application-type: none
 spring.cloud.config.server.git.uri: ${HOME}/Documents/config_repo
   #convention is port 8888 for config servers
   #the endpoint to access is http://localhost:8888/<file-name>/<profile>
