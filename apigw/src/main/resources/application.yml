@@ -28,4 +28,4 @@
 logging.level.org.springframework.security: DEBUG
 spring.main.allow-bean-definition-overriding: true
 spring.application.name: apigw
-spring.config.import: http://config-server:8888/
+spring.config.import: optional:configserver:http://config-server:8888
