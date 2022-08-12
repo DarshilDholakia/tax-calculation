@@ -45,20 +45,20 @@ public class RabbitMQConfig {
 
 
 
-//    public static final String notificationQueue = "internal.exchange";
-//    public static final String internalExchange = "notification.queue";
-//    public static final String internalNotificationRoutingKey = "internal.notification.routing-key";
+    public static final String notificationQueue = "internal.exchange";
+    public static final String internalExchange = "notification.queue";
+    public static final String internalNotificationRoutingKey = "internal.notification.routing-key";
 
 
     // the below gives us access to the values in app.yml file, and we're saving them into the below String variables
-    @Value("${rabbitmq.exchanges.internal}")
-    private String internalExchange; // value for this is coming from the app.yml file using the above annotation
-
-    @Value("${rabbitmq.queue.notification}")
-    private String notificationQueue;
-
-    @Value("${rabbitmq.routing-keys.internal-notification}")
-    private String internalNotificationRoutingKey;
+//    @Value("${rabbitmq.exchanges.internal}")
+//    private String internalExchange; // value for this is coming from the app.yml file using the above annotation
+//
+//    @Value("${rabbitmq.queue.notification}")
+//    private String notificationQueue;
+//
+//    @Value("${rabbitmq.routing-keys.internal-notification}")
+//    private String internalNotificationRoutingKey;
 
     // DEFINING THE EXCHANGE
     @Bean

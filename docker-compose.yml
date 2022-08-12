@@ -5,7 +5,7 @@ services:
     image: mongo
     container_name: mongodb
     ports:
-      - 27017:27017
+      - "27017:27017"
     networks:
       - mongodb
     volumes:
@@ -71,6 +71,10 @@ services:
     networks:
       - spring
       - mongodb
+#    environment:
+#      - MONGODB_URI=mongodb://rootuser:rootpass@abc:27017/taxCalc
+#      - MONGODB_STATUS_HOST=abc
+#      - MONGODB_STATUS_PORT=27017
     depends_on:
       - mongodb
       - rabbitmq

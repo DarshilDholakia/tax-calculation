@@ -1,5 +1,6 @@
 package com.teamC.calculation.rabbitmq;
 
+import com.teamC.amqp.RabbitMQConfig;
 import com.teamC.calculation.CalculationService;
 import com.teamC.calculation.Payload;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class CalculationConsumer {
     private final CalculationService calculationService;
-    @RabbitListener(queues = "${rabbitmq.queue.notification}")
+    @RabbitListener(queues = RabbitMQConfig.notificationQueue)
     public void consumer(String personId) {
         log.info("Consumed {} from queue ", personId);
         try {

@@ -7,18 +7,6 @@
 #      defaultZone: http://localhost:8761/eureka
 #    fetch-registry: true
 #    register-with-eureka: true
-#
-#spring:
-#  application:
-#    name: person
-#  data:
-#    mongodb:
-#      authentication-database: admin
-#      username: rootuser
-#      password: rootpass
-#      database: person
-#      port: 27017
-#      host: localhost
 
 server.error.include-message: always
 spring.application.name: person
