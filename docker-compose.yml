@@ -43,7 +43,7 @@ services:
       - "8500:8500"
     networks:
       - spring
-    command: "agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0"
+    command: "agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0 -bind=127.0.0.1"
 
   config-server:
     image: darshildholakia/config-server
@@ -58,6 +58,8 @@ services:
     container_name: apigw
     ports:
       - "8085:8085"
+    expose:
+      - 8085
     networks:
       - spring
     depends_on:
@@ -68,6 +70,8 @@ services:
     container_name: person
     ports:
       - "8082:8082"
+    expose:
+      - 8082
     networks:
       - spring
       - mongodb
@@ -85,6 +89,8 @@ services:
     container_name: income
     ports:
       - "8083:8083"
+    expose:
+      - 8083
     networks:
       - spring
       - mongodb
@@ -98,6 +104,8 @@ services:
     container_name: calculation
     ports:
       - "8084:8084"
+    expose:
+      - 8084
     networks:
       - spring
       - mongodb
@@ -111,6 +119,6 @@ volumes:
 
 networks:
   spring:
-    driver: bridge
+#    driver: bridge
   mongodb:
-    driver: bridge
+#    driver: bridge
